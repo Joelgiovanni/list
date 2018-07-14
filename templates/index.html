@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="album.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>List</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading mb-5">To Do List</h1>
+
+        <form action="{{ url_for('add') }}" method="POST">
+        <div>
+            <h2 class="text-secondary"><em>Add new items to the list:</em></h2>
+          <div class="input-group mb-3">
+              
+                    <span class="input-group-text" id="basic-addon1">New List Item</span>
+                    <input type="text" class="form-control" name="newitem" placeholder="...">
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Add To List </button>
+            </form>
+        </div>
+
+        <div>
+
+        <div class="list-container mt-5">
+          
+            <h4 class="text-danger">Need to be done</h4>
+            <ul class="list-group">
+                {% for list in incomplete %}
+
+                <li class="list-group-item">
+                  {{ list.text }}
+                  <br>
+                  <a href="{{ url_for('complete', id=list.id) }}">Mark as complete</a>
+                  <br>
+                  <a href="{{ url_for('delete', id=list.id) }}">Delete List Item</a>
+                </li>
+                
+                {% endfor %}
+            </ul>
+
+            <h4 class="mt-5 text-primary">Complete</h4>
+            <ul class="list-group">
+                {% for list in complete %}
+                <li class="list-group-item">
+                  {{ list.text }}
+                  <br>
+                  <a href="{{ url_for('incomplete', id=list.id) }}">Mark as incomplete</a>
+                  <br>
+                  <a href="{{ url_for('delete', id=list.id) }}">Delete List Item</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+          <!-- <p>
+            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          </p> -->
+
+
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <h3 class="text-center"><em>Do <strong class="text-danger">you </strong>have everything you need?</em></h3>
+      </div>
+    </footer>
+
+  </body>
+</html>
